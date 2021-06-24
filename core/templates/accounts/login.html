@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    ورود
+{% endblock %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        yes
+    {% else %}
+        <form method='POST' >
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type='submit' value='ورود' class='btn btn-primary'>
+        </form>
+    {% endif %}
+{% endblock %}

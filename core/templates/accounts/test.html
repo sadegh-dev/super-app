@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    تست
+{% endblock %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        yes
+    {% else %}
+        no
+    {% endif %}
+    
+    <h1>صفحه تست</h1>
+{% endblock %}

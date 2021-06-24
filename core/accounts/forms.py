@@ -39,3 +39,17 @@ class UserAdminChangeForm(forms.ModelForm):
     def clean_password(self):
         return self.initial['password']
 
+
+class UserLoginForm(forms.Form):
+    email = forms.CharField(
+        max_length=100 ,
+        widget= forms.EmailInput(attrs={
+            'class':'form-control'
+        }))
+    password = forms.CharField(
+        max_length=100 ,
+        widget= forms.PasswordInput(attrs={
+            'class':'form-control'
+        }))
+
+
