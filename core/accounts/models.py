@@ -1,4 +1,3 @@
-from typing_extensions import Required
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .managers import MyUserManager
@@ -18,10 +17,9 @@ class User(AbstractBaseUser):
     
     ACCESS_LEVELS = (
         ('s','simple'),
-        ('o','operator'),
-        ('a','admin')
+        ('o','operator')
     )
-    access_level =  models.CharField(max_lenght=1,  choices=ACCESS_LEVELS, default = 's')
+    access_level =  models.CharField(max_length=1,  choices=ACCESS_LEVELS, default = 's')
     
     is_admin =      models.BooleanField(default=False)
     is_active =     models.BooleanField(default=True)
