@@ -22,14 +22,14 @@ class MyUserManager(BaseUserManager):
             national_code = national_code ,
             date_birth = date_birth ,
             mobile = mobile ,
-            address = address
+            address = address,
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
     
     def create_superuser(self, email, password, full_name, national_code, date_birth, mobile, address):
-        user = self.create_user(self, email, password, full_name, national_code, date_birth, mobile, address)
+        user = self.create_user(email, password, full_name, national_code, date_birth, mobile, address)
         user.is_admin = True
         user.save(using=self._db)
         return user

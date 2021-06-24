@@ -8,7 +8,7 @@ from django.contrib.auth.models import Group
 class UserAdmin(BaseUserAdmin):
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
-    list_display = ('email', 'full_name', 'national_code', 'date_birth', 'mobile', 'phone', 'address', 'access_level', 'is_admin', 'is_active')
+    list_display = ('full_name', 'email','is_admin', 'access_level', 'is_active')
     list_filter = ('is_admin', 'access_level')
     fieldsets = (
         (None,{'fields':('full_name','national_code','date_birth')}),
