@@ -8,7 +8,7 @@ class User(AbstractBaseUser):
     #password
 
     full_name =     models.CharField(max_length=200)
-    national_code = models.CharField(max_length=10, unique=True ) #validate
+    national_code = models.CharField(max_length=10, unique=True) #validate
     date_birth =    models.DateField() 
     
     mobile =        models.CharField(max_length=11, unique=True) #validate

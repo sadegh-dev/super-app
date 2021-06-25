@@ -8,8 +8,9 @@
     <title>{% block title %} - {% endblock %}</title>
 </head>
 <body dir='rtl' >
-    {% include 'inc/messages.html' %}
+    {% include 'inc/navbar.html'  %}
     <div class='container' >
+        {% include 'inc/messages.html' %}
         {% block content %}
             404 :( صفحه مورد نظر یافت نشد
         {% endblock %}

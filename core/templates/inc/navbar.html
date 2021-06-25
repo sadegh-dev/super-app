@@ -1,0 +1,13 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {% if user.is_authenticated %}
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'accounts:dashboard' %}">پنل کاربری</a>
+            <a class="navbar-brand" href="{% url 'accounts:logout' %}">خروج</a>
+        </div>
+    {% else %}
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'accounts:login' %}">ورود</a>
+            <a class="navbar-brand" href="{% url 'accounts:register' %}">ثبت نام</a>
+        </div>
+    {% endif %}
+  </nav>
