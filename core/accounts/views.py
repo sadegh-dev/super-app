@@ -1,11 +1,16 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm, UserRegisterForm, UserChangeForm
 from .models import User
 
+
+
+@login_required
 def dashboard(request):
     return render(request,'accounts/dashboard.html')
+
 
 
 def user_register(request):
@@ -13,9 +18,9 @@ def user_register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = User.objects.create_user( cd['email'], cd['password1'], cd['full_name'], cd['national_code'], cd['date_birth'], cd['mobile'], cd['address'] )
+            user = User.objects.create_user( cd['email'], cd['password1'], cd['full_name'], cd['national_code'], cd['mobile'], cd['address'] )
             user.save()
-            #login(request, user)
+            login(request, user)
             messages.success(request,'ثبت نام با موفقیت انجام شد','success')
             return redirect('accounts:dashboard')
     else :
@@ -24,6 +29,26 @@ def user_register(request):
         'form' : form
     }
     return render(request, 'accounts/register.html', context)
+
+
+
+@login_required
+def user_edit(request):
+    myid = request.user.id
+    me = get_object_or_404(User, id = myid)
+    if request.method =='POST':
+        form = UserChangeForm(request.POST, instance=me)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'ویرایش مشخصات با موفقیت انجام شد','success')
+            return redirect('accounts:dashboard')
+    else :
+        form = UserChangeForm(instance=me)
+    context = {
+        'form' : form
+    }
+    return render (request, 'accounts/user_edit.html', context)
+
 
 
 def user_login(request):
@@ -49,9 +74,10 @@ def user_login(request):
     return render(request, 'accounts/login.html', context)
 
 
+
+@login_required
 def user_logout(request):
     logout(request)
     messages.success(request,'خروج با موفقیت انجام شد','success')
     return redirect('accounts:dashboard')
-
 

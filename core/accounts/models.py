@@ -9,10 +9,8 @@ class User(AbstractBaseUser):
 
     full_name =     models.CharField(max_length=200)
     national_code = models.CharField(max_length=10, unique=True) #validate
-    date_birth =    models.DateField() 
     
     mobile =        models.CharField(max_length=11, unique=True) #validate
-    phone =         models.CharField(max_length=15, null=True, blank=True ) #validate 
     address =       models.TextField()
     
     ACCESS_LEVELS = (
@@ -29,7 +27,7 @@ class User(AbstractBaseUser):
     #book =         models.ForeignKey(Book, on_delete=models.SET_NULL) OR models.PositiveIntegerField(idBook or 0)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name', 'national_code', 'date_birth', 'mobile', 'address']
+    REQUIRED_FIELDS = ['full_name', 'national_code', 'mobile', 'address']
     objects = MyUserManager()
 
     def __str__(self):

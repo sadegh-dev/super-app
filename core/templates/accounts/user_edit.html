@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    ورود
+    ویرایش مشخصات
 {% endblock %}
 
 {% block content %}
         <form method='POST' >
             {% csrf_token %}
             {{ form.as_p }}
-            <input type='submit' value='ورود' class='btn btn-primary'>
+            <input type='submit' value='ثبت ویرایش' class='btn btn-primary' >
         </form>
-
 {% endblock %}
