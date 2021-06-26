@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserLoginForm, UserRegisterForm, UserChangeForm
+from .forms import UserLoginForm, UserRegisterForm, UserChangeForm, UserChangePassForm
 from .models import User
 
 
@@ -48,6 +48,28 @@ def user_edit(request):
         'form' : form
     }
     return render (request, 'accounts/user_edit.html', context)
+
+
+
+@login_required
+def user_change_password(request):
+    myid = request.user.id
+    the_user = get_object_or_404(User, id = myid)
+    if request.method == 'POST' :
+        form = UserChangePassForm(request.POST, instance=the_user)
+        if form.is_valid():
+            fm = form.save(commit=False)
+            fm.password1 = form.cleaned_data['password1']
+            fm.save()
+            #login(request,the_user)
+            messages.success(request, 'رمز عبور با موفقیت تغییر کرد', 'success')
+            return redirect('accounts:dashboard')
+    else:
+        form = UserChangePassForm(instance = the_user)
+    context = {
+        'form': form
+        }
+    return render(request, 'accounts/user_change_password.html', context)
 
 
 

@@ -95,6 +95,9 @@ class UserRegisterForm(forms.ModelForm):
             },
             'national_code' :{
                 'unique':'کاربری با این کدملی قبلا ثبت شده است',
+            },
+            'mobile' :{
+                'unique':'این شماره همراه قبلا ثبت شده است',
             }
         }
 
@@ -166,6 +169,9 @@ class UserChangeForm(forms.ModelForm):
             },
             'national_code' :{
                 'unique':'کاربری با این کدملی قبلا ثبت شده است',
+            },
+            'mobile' :{
+                'unique':'این شماره همراه قبلا ثبت شده است',
             }
         }
     def clean_national_code(self):
@@ -184,6 +190,35 @@ class UserChangeForm(forms.ModelForm):
         else :
             raise forms.ValidationError('شماره همراه صحیح نمی باشد')
 
+
+
+class UserChangePassForm(forms.ModelForm):
+    password1 = forms.CharField(
+        label = 'رمز عبور',
+        widget = forms.PasswordInput
+    )
+    password2 = forms.CharField(
+        label = 'تکرار رمز عبور',
+        widget = forms.PasswordInput
+    )
+    class Meta :
+        model = User
+        fields = ()
+
+    def clean_password2(self):
+        p1 = self.cleaned_data['password1']
+        p2 = self.cleaned_data['password2']
+        if p1 and p2 and p1 != p2 :
+            raise forms.ValidationError(' رمز عبور هم خوانی ندارند ')
+        return p1
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password1'])
+        if commit :
+            user.save()
+        return user
+        
 
 
 class UserLoginForm(forms.Form):
