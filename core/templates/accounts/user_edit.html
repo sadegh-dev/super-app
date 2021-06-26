@@ -5,9 +5,17 @@
 {% endblock %}
 
 {% block content %}
-        <form method='POST' >
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type='submit' value='ثبت ویرایش' class='btn btn-primary' >
-        </form>
+    <div class="row">
+        <div class="col-3 ">
+            {% include 'accounts/vertical_navbar.html'  %}
+        </div>
+        <div class="col border border-secoundry py-4" style='border-radius:4px;'>
+            <form method='POST' >
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type='submit' value='ثبت ویرایش' class='btn btn-primary' >
+                <a href="{% url 'accounts:dashboard' %}" type="button" class="btn btn-danger">انصراف</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}
